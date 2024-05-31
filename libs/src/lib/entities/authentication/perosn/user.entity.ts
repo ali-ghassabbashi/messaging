@@ -1,7 +1,7 @@
-import {Column, Entity, PrimaryGeneratedColumn} from 'typeorm';
-import {IsEmail, IsNotEmpty, IsString, Length, Matches} from 'class-validator'
-
-
+import {Column, Entity, OneToMany, PrimaryGeneratedColumn} from 'typeorm';
+import {IsEmail, IsNotEmpty, IsObject, IsString, Length, Matches} from 'class-validator'
+import { MessageEntity } from '../../messaging/messages/message.entity';
+import { UserMessageEntity } from '../../messaging/messages/user-messages.entity';
 @Entity({name: 'Users', schema: 'person'})
 export class UserEntity {
   
@@ -30,4 +30,12 @@ export class UserEntity {
   @IsString()
   @IsEmail()
   email: string;
+
+  @OneToMany(() => MessageEntity, message => message.sender)
+  @IsObject({each: true})
+  messages?: MessageEntity[];
+
+  @OneToMany(() => UserMessageEntity, userMessage => userMessage.user)
+  @IsObject()
+  inbox: UserMessageEntity[];
 }
