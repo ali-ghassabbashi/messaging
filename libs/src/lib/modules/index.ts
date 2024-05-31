@@ -1,0 +1,1 @@
+export * from './shared-typeorm/shared-typeorm.module'

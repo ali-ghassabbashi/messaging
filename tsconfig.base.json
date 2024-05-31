@@ -13,8 +13,12 @@
     "lib": ["es2020", "dom"],
     "skipLibCheck": true,
     "skipDefaultLibCheck": true,
+    "strictPropertyInitialization": false,
     "baseUrl": ".",
-    "paths": {}
+    "paths": {
+      "@messaging-app/backend-shared": ["libs/src/index.ts"],
+      "@messaging-app/backend-shared/modules": ["libs/src/lib/modules"]
+    }
   },
   "exclude": ["node_modules", "tmp"]
 }
