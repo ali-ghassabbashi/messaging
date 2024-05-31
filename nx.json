@@ -34,7 +34,13 @@
       "options": {
         "targetName": "test"
       },
-      "exclude": ["apps/messaging-app-e2e/**/*"]
+      "exclude": [
+        "apps/messaging-app-e2e/**/*",
+        "apps/gateway-e2e/**/*",
+        "apps/authentication-e2e/**/*",
+        "apps/messaging-nest-e2e/**/*",
+        "apps/messaging-e2e/**/*"
+      ]
     }
   ]
 }
