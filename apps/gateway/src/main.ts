@@ -7,20 +7,16 @@ import { Logger } from '@nestjs/common';
 import { NestFactory } from '@nestjs/core';
 
 import { AppModule } from './app/app.module';
-import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
+import { sharedMain } from '@messaging-app/backend-shared';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
 
-  const config = new DocumentBuilder()
-    .setTitle('Api Gateway!')
-    .setDescription('This is the documentation of api gateway.')
-    .setVersion('1.0')
-    .addTag('gateway')
-    .build();
-
-  const document = SwaggerModule.createDocument(app, config);
-  SwaggerModule.setup('documents', app, document);
+  await sharedMain(app, null, {
+    title: 'Api Gateway!',
+    description: 'This is the documentation of api gateway.',
+    tag: 'gateway'
+  })
 
   const globalPrefix = 'api';
   app.setGlobalPrefix(globalPrefix);

@@ -1,8 +1,8 @@
 import {Column, Entity, OneToMany, PrimaryGeneratedColumn} from 'typeorm';
-import {IsEmail, IsNotEmpty, IsObject, IsString, Length, Matches} from 'class-validator'
+import {IsEmail, IsNotEmpty, IsObject, IsOptional, IsString, Length, Matches} from 'class-validator'
 import { MessageEntity } from '../../messaging/messages/message.entity';
 import { UserMessageEntity } from '../../messaging/messages/user-messages.entity';
-import { ApiProperty } from '@nestjs/swagger';
+import { ApiProperty, ApiPropertyOptional } from '@nestjs/swagger';
 @Entity({name: 'Users', schema: 'person'})
 export class UserEntity {
   
@@ -38,12 +38,14 @@ export class UserEntity {
   email: string;
 
   @OneToMany(() => MessageEntity, message => message.sender)
-  @IsObject({each: true})
-  @ApiProperty({type: MessageEntity, isArray: true})
+  @IsObject()
+  @IsOptional()
+  @ApiPropertyOptional({type: MessageEntity, isArray: true, nullable: true})
   messages?: MessageEntity[];
 
   @OneToMany(() => UserMessageEntity, userMessage => userMessage.user)
   @IsObject()
-  @ApiProperty({type: UserMessageEntity, isArray: true})
-  inbox: UserMessageEntity[];
+  @IsOptional()
+  @ApiPropertyOptional({type: UserMessageEntity, isArray: true})
+  inbox?: UserMessageEntity[];
 }
