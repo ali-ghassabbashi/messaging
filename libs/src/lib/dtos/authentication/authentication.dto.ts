@@ -1,7 +1,22 @@
-import { ApiProperty, PickType } from "@nestjs/swagger";
-import { UserEntity } from "../../entities/authentication";
+import { ApiProperty } from "@nestjs/swagger";
+import { IsNotEmpty, IsString, ValidateIf } from "class-validator";
 
-export class SignInDto extends PickType(UserEntity, ['username', 'password']) {}
+export class SignInDto {
+
+  @IsString()
+  @IsNotEmpty()
+  @ValidateIf((obj: SignInDto) => !obj.email)
+  username: string;
+
+  @IsString()
+  @IsNotEmpty()
+  @ValidateIf((obj: SignInDto) => !obj.username)
+  email: string;
+  
+  @IsString()
+  @IsNotEmpty()
+  password: string;
+}
 
 export class AuthenticationResponseDto {
   

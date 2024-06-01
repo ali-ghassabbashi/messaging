@@ -3,6 +3,7 @@ import { UserEntity } from '../../entities/authentication';
 import { CreateUserDto, AuthenticationResponseDto, SignInDto, UpdateUserDto } from '../../dtos/authentication';
 import { ClientKafka } from '@nestjs/microservices';
 import { firstValueFrom } from 'rxjs';
+import { MessagePatternEnum } from '../../constants/enums/message-patterns.enum';
 
 
 @Injectable()
@@ -11,26 +12,32 @@ export class AuthClientService implements OnModuleInit {
   constructor(@Inject('AUTH_CLIENT') private readonly _client: ClientKafka) {}
   
   onModuleInit() {
-    ['searchUsername', 'findUserInfo', 'signupUser', 'signinUser', 'updateUser'].forEach(pattern => this._client.subscribeToResponseOf(pattern))
+    Object.values(MessagePatternEnum).forEach(pattern => this._client.subscribeToResponseOf(pattern))
   }
 
   findByUsername(username: string): Promise<string[]> {
-    return firstValueFrom<string[]>(this._client.send('searchUsername', { username }));
+    return firstValueFrom<string[]>(this._client.send(MessagePatternEnum.SEARCH_USERNAME, { username }));
   }
 
   findOne(id: string): Promise<UserEntity> {
-    return firstValueFrom<UserEntity>(this._client.send('findUserInfo', { id }));
+    return firstValueFrom<UserEntity>(this._client.send(MessagePatternEnum.FIND_USER_INFO, { id }));
   }
 
-  signup(createUserDto: CreateUserDto): Promise<AuthenticationResponseDto> {
-    return firstValueFrom<AuthenticationResponseDto>(this._client.send('signupUser', createUserDto));
+  async signup(createUserDto: CreateUserDto): Promise<AuthenticationResponseDto> {
+    return firstValueFrom<AuthenticationResponseDto>(
+      this._client.send(MessagePatternEnum.SIGNUP_USER, createUserDto)
+    );
   }
 
   signin(signInDto: SignInDto): Promise<AuthenticationResponseDto> {
-    return firstValueFrom<AuthenticationResponseDto>(this._client.send('signinUser', { signInDto }));
+    return firstValueFrom<AuthenticationResponseDto>(
+      this._client.send(MessagePatternEnum.SIGNIN_USER, signInDto)
+    );
   }
 
   update(id: string, updateUserDto: UpdateUserDto): Promise<UserEntity> {
-    return firstValueFrom<UserEntity>(this._client.send('updateUser', { id, updateUserDto }));
+    return firstValueFrom<UserEntity>(
+      this._client.send(MessagePatternEnum.UPDATE_USER, { id, updateUserDto })
+    );
   }
 }

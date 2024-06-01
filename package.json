@@ -2,7 +2,11 @@
   "name": "@messaging-app/source",
   "version": "0.0.0",
   "license": "MIT",
-  "scripts": {},
+  "scripts": {
+    "auth:serve": "nx serve authentication",
+    "msg:serve": "nx serve messaging",
+    "gate:serve": "nx serve gateway"
+  },
   "private": true,
   "dependencies": {
     "@nestjs/common": "^10.0.2",
@@ -13,8 +17,10 @@
     "@nestjs/swagger": "^7.3.1",
     "@nestjs/typeorm": "^10.0.2",
     "axios": "^1.6.0",
+    "bcrypt": "^5.1.1",
     "class-transformer": "^0.5.1",
     "class-validator": "^0.14.1",
+    "jsonwebtoken": "^9.0.2",
     "kafkajs": "^2.2.4",
     "moleculer": "^0.14.33",
     "pg": "^8.11.5",
@@ -38,7 +44,9 @@
     "@swc-node/register": "~1.9.1",
     "@swc/core": "~1.5.7",
     "@swc/helpers": "~0.5.11",
+    "@types/bcrypt": "^5.0.2",
     "@types/jest": "^29.4.0",
+    "@types/jsonwebtoken": "^9.0.6",
     "@types/node": "~18.16.9",
     "@typescript-eslint/eslint-plugin": "^7.3.0",
     "@typescript-eslint/parser": "^7.3.0",

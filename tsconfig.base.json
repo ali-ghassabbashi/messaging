@@ -17,7 +17,8 @@
     "baseUrl": ".",
     "paths": {
       "@messaging-app/backend-shared": ["libs/src/index.ts"],
-      "@messaging-app/backend-shared/modules": ["libs/src/lib/modules"]
+      "@messaging-app/backend-shared/modules": ["libs/src/lib/modules"],
+      "@messaging-app/backend-shared/constants": ["libs/src/lib/constants"]
     }
   },
   "exclude": ["node_modules", "tmp"]

@@ -1,9 +1,13 @@
-import {Column, Entity, OneToMany, PrimaryGeneratedColumn} from 'typeorm';
+import {Column, Entity, Index, OneToMany, PrimaryGeneratedColumn, Unique} from 'typeorm';
 import {IsEmail, IsNotEmpty, IsObject, IsOptional, IsString, Length, Matches} from 'class-validator'
 import { MessageEntity } from '../../messaging/messages/message.entity';
 import { UserMessageEntity } from '../../messaging/messages/user-messages.entity';
 import { ApiProperty, ApiPropertyOptional } from '@nestjs/swagger';
 @Entity({name: 'Users', schema: 'person'})
+@Unique('username_unique', ['username'])
+@Unique('email_unique', ['email'])
+@Index(['username'], {unique: true})
+@Index(['email'], {unique: true})
 export class UserEntity {
   
   @PrimaryGeneratedColumn('uuid')
