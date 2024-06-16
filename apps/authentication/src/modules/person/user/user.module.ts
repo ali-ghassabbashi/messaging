@@ -2,7 +2,7 @@ import { Module } from '@nestjs/common';
 import { UserRpcController } from './user.rpc.controller';
 import { UserService } from './user.service';
 import { TypeOrmModule } from '@nestjs/typeorm';
-import { UserEntity, MessageEntity, MessageMetadataEntity, UserMessageEntity } from '@messaging-app/backend-shared'
+import { MessageEntity, MessageMetadataEntity, UserEntity, UserMessageEntity } from '@messaging-app/backend-shared/entities';
 import { AuthenticationRpcController } from './authentication.rpc.controller';
 import { AuthenticationService } from './authentication.service';
 import { ConfigModule } from '@nestjs/config';
@@ -13,6 +13,7 @@ import { ConfigModule } from '@nestjs/config';
     TypeOrmModule.forFeature([UserEntity, MessageEntity, MessageMetadataEntity, UserMessageEntity])
   ],
   controllers: [UserRpcController, AuthenticationRpcController],
-  providers: [UserService, AuthenticationService],
+  providers: [UserService, AuthenticationService]
 })
-export class UserModule {}
+export class UserModule {
+}

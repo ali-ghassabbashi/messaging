@@ -1,12 +1,14 @@
 import { Module } from '@nestjs/common';
-import { AuthClientController } from './auth-api.controller';
-import { AuthClientModule } from '@messaging-app/backend-shared';
+import { AuthClientModule } from '@messaging-app/backend-shared/modules';
+import { UserApiController } from './user-api.controller';
+import { AuthApiController } from './auth-api.controller';
 
 @Module({
   imports: [
     AuthClientModule
   ],
-  controllers: [AuthClientController],
-  providers: [],
+  controllers: [AuthApiController, UserApiController],
+  providers: []
 })
-export class AuthApiModule {}
+export class AuthApiModule {
+}

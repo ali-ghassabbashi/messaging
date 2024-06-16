@@ -7,7 +7,7 @@ import { Logger } from '@nestjs/common';
 import { NestFactory } from '@nestjs/core';
 
 import { AppModule } from './app/app.module';
-import { sharedMain } from '@messaging-app/backend-shared';
+import { sharedMain } from '@messaging-app/backend-shared/modules';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
@@ -16,7 +16,7 @@ async function bootstrap() {
     title: 'Api Gateway!',
     description: 'This is the documentation of api gateway.',
     tag: 'gateway'
-  })
+  });
 
   const globalPrefix = 'api';
   app.setGlobalPrefix(globalPrefix);

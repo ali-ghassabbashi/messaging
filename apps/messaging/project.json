@@ -9,7 +9,9 @@
       "executor": "@nx/js:node",
       "defaultConfiguration": "development",
       "options": {
-        "buildTarget": "messaging:build"
+        "buildTarget": "messaging:build",
+        "inspect": "inspect",
+        "port": 9231
       },
       "configurations": {
         "development": {

@@ -7,7 +7,7 @@ import { Logger } from '@nestjs/common';
 import { NestFactory } from '@nestjs/core';
 
 import { AppModule } from './app/app.module';
-import { sharedMain } from '@messaging-app/backend-shared';
+import { sharedMain } from '@messaging-app/backend-shared/modules';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
@@ -17,7 +17,6 @@ async function bootstrap() {
     description: 'This is the documentation of authentication service.',
     tag: 'auth'
   });
-  
 
   const globalPrefix = 'api';
   app.setGlobalPrefix(globalPrefix);

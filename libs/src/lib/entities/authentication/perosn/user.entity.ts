@@ -1,22 +1,21 @@
-import {Column, Entity, Index, OneToMany, PrimaryGeneratedColumn, Unique} from 'typeorm';
-import {IsEmail, IsNotEmpty, IsObject, IsOptional, IsString, Length, Matches} from 'class-validator'
-import { MessageEntity } from '../../messaging/messages/message.entity';
-import { UserMessageEntity } from '../../messaging/messages/user-messages.entity';
+import { Column, Entity, Index, OneToMany, PrimaryGeneratedColumn, Unique } from 'typeorm';
+import { IsEmail, IsNotEmpty, IsObject, IsOptional, IsString, Length, Matches } from 'class-validator';
+import { MessageEntity, UserMessageEntity } from '../../messaging';
 import { ApiProperty, ApiPropertyOptional } from '@nestjs/swagger';
-@Entity({name: 'Users', schema: 'person'})
+
+@Entity({ name: 'Users', schema: 'person' })
 @Unique('username_unique', ['username'])
 @Unique('email_unique', ['email'])
-@Index(['username'], {unique: true})
-@Index(['email'], {unique: true})
+@Index(['username'], { unique: true })
+@Index(['email'], { unique: true })
 export class UserEntity {
-  
   @PrimaryGeneratedColumn('uuid')
-  @ApiProperty({type: 'uuid'})
+  @ApiProperty({ type: 'uuid' })
   id: string;
 
   @Column()
   @IsString()
-  @ApiProperty({type: 'string'})
+  @ApiProperty({ type: 'string' })
   username: string;
 
   @Column()
@@ -26,30 +25,30 @@ export class UserEntity {
   @Matches(/(?=.*[A-Z])/, { message: 'Password must contain at least one uppercase letter.' })
   @Matches(/(?=.*\d)/, { message: 'Password must contain at least one number.' })
   @Matches(/(?=.*[@$!%*?&])/, { message: 'Password must contain at least one special character.' })
-  @ApiProperty({type: 'string'})
+  @ApiProperty({ type: 'string' })
   password: string;
 
   @Column()
   @IsString()
   @IsNotEmpty()
-  @ApiProperty({type: 'string'})
+  @ApiProperty({ type: 'string' })
   fullName: string;
 
   @Column()
   @IsString()
   @IsEmail()
-  @ApiProperty({type: 'string'})
+  @ApiProperty({ type: 'string' })
   email: string;
 
-  @OneToMany(() => MessageEntity, message => message.sender)
+  @OneToMany(() => MessageEntity, (message) => message.sender)
   @IsObject()
   @IsOptional()
-  @ApiPropertyOptional({type: MessageEntity, isArray: true, nullable: true})
+  @ApiPropertyOptional({ type: MessageEntity, isArray: true, nullable: true })
   messages?: MessageEntity[];
 
-  @OneToMany(() => UserMessageEntity, userMessage => userMessage.user)
+  @OneToMany(() => UserMessageEntity, (userMessage) => userMessage.user)
   @IsObject()
   @IsOptional()
-  @ApiPropertyOptional({type: UserMessageEntity, isArray: true})
+  @ApiPropertyOptional({ type: UserMessageEntity, isArray: true })
   inbox?: UserMessageEntity[];
 }
