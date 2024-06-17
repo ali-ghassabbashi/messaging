@@ -1,7 +1,6 @@
-import { Column, Entity, Index, OneToMany, PrimaryGeneratedColumn, Unique } from 'typeorm';
-import { IsEmail, IsNotEmpty, IsObject, IsOptional, IsString, Length, Matches } from 'class-validator';
-import { MessageEntity, UserMessageEntity } from '../../messaging';
-import { ApiProperty, ApiPropertyOptional } from '@nestjs/swagger';
+import { Column, Entity, Index, PrimaryGeneratedColumn, Unique } from 'typeorm';
+import { IsEmail, IsNotEmpty, IsString, Length, Matches } from 'class-validator';
+import { ApiProperty } from '@nestjs/swagger';
 
 @Entity({ name: 'Users', schema: 'person' })
 @Unique('username_unique', ['username'])
@@ -39,16 +38,4 @@ export class UserEntity {
   @IsEmail()
   @ApiProperty({ type: 'string' })
   email: string;
-
-  @OneToMany(() => MessageEntity, (message) => message.sender)
-  @IsObject()
-  @IsOptional()
-  @ApiPropertyOptional({ type: MessageEntity, isArray: true, nullable: true })
-  messages?: MessageEntity[];
-
-  @OneToMany(() => UserMessageEntity, (userMessage) => userMessage.user)
-  @IsObject()
-  @IsOptional()
-  @ApiPropertyOptional({ type: UserMessageEntity, isArray: true })
-  inbox?: UserMessageEntity[];
 }

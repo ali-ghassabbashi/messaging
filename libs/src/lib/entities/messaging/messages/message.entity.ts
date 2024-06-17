@@ -1,5 +1,5 @@
 import { Column, CreateDateColumn, Entity, JoinColumn, ManyToOne, OneToMany, OneToOne, PrimaryGeneratedColumn, UpdateDateColumn } from "typeorm";
-import { UserEntity } from "../../authentication";
+import { UserEntity } from "../person/user.entity";
 import { MessageMetadataEntity } from "./message-metadata.entity";
 import { IsNotEmpty, IsObject, IsString, IsUUID, ValidateIf } from "class-validator";
 import { UserMessageEntity } from "./user-messages.entity";
@@ -41,7 +41,7 @@ export class MessageEntity {
   @OneToMany(() => UserMessageEntity, userMessage => userMessage.message)
   @IsObject({ each:true })
   @ApiProperty({type: UserMessageEntity, isArray: true})
-  recivers: UserMessageEntity[];
+  receivers: UserMessageEntity[];
 
   @CreateDateColumn()
   @ApiProperty({type: 'date'})

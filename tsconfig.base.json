@@ -21,7 +21,8 @@
       "@messaging-app/backend-shared/constants": ["libs/src/lib/constants"],
       "@messaging-app/backend-shared/decorators": ["libs/src/lib/decorators"],
       "@messaging-app/backend-shared/dtos": ["libs/src/lib/dtos"],
-      "@messaging-app/backend-shared/entities": ["libs/src/lib/entities"],
+      "@messaging-app/backend-shared/entities/authentication": ["libs/src/lib/entities/authentication"],
+      "@messaging-app/backend-shared/entities/messaging": ["libs/src/lib/entities/messaging"],
       "@messaging-app/backend-shared/exceptions": ["libs/src/lib/exceptions"],
       "@messaging-app/backend-shared/interceptors": ["libs/src/lib/interceptors"],
       "@messaging-app/backend-shared/guards": ["libs/src/lib/guards"]

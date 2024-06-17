@@ -2,7 +2,7 @@ import { Controller, Get, HttpCode, NotFoundException, Param, Patch, UseGuards }
 import { AuthClientService } from '@messaging-app/backend-shared/modules';
 import { ApiNotFoundResponse, ApiOkResponse, ApiOperation, ApiParam } from '@nestjs/swagger';
 import { Serialize } from '@messaging-app/backend-shared/decorators';
-import { UserEntity } from '@messaging-app/backend-shared/entities';
+import { UserEntity } from '@messaging-app/backend-shared/entities/authentication';
 import { UpdateUserDto, UserResponseDto } from '@messaging-app/backend-shared/dtos';
 import { AuthGuard } from '@messaging-app/backend-shared/guards';
 

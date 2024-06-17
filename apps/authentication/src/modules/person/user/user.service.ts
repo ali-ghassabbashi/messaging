@@ -3,7 +3,7 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { RpcException } from '@nestjs/microservices';
 import { UserNotFoundRpcException } from '@messaging-app/backend-shared/exceptions';
-import { UserEntity } from '@messaging-app/backend-shared/entities';
+import { UserEntity } from '@messaging-app/backend-shared/entities/authentication';
 import { CreateUserDto, SignInDto, UpdateUserDto } from '@messaging-app/backend-shared/dtos';
 
 @Injectable()

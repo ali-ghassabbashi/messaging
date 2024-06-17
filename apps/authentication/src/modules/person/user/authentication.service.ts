@@ -1,7 +1,7 @@
 import { Injectable, UnauthorizedException } from '@nestjs/common';
 import { UserService } from './user.service';
 import { AuthenticationResponseDto, CreateUserDto, SignInDto } from '@messaging-app/backend-shared/dtos';
-import { UserEntity } from '@messaging-app/backend-shared/entities';
+import { UserEntity } from '@messaging-app/backend-shared/entities/authentication';
 import { ConfigService } from '@nestjs/config';
 import { compareSync, hash } from 'bcrypt';
 import { JwtPayload, sign, verify } from 'jsonwebtoken';
@@ -39,7 +39,7 @@ export class AuthenticationService {
 
   async validateToken(token: string): Promise<UserEntity> {
     const payload: JwtPayload = verify(token, this._configService.get<string>('JWT_SECRET')) as JwtPayload;
-    return await this._userService.findByIdOrFailed(payload.userId);
+    return await this._userService.findByIdOrFailed(payload.sub);
   }
 
   private _getTokens(user: UserEntity): AuthenticationResponseDto {

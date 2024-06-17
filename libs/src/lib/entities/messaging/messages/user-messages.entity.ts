@@ -1,8 +1,8 @@
 import { Column, Entity, JoinColumn, ManyToMany, PrimaryGeneratedColumn } from "typeorm";
-import { UserEntity } from "../../authentication";
-import { MessageEntity } from "./message.entity";
-import { IsDate, IsObject, IsString, IsUUID } from "class-validator";
 import { ApiProperty } from "@nestjs/swagger";
+import { IsDate, IsObject, IsString, IsUUID } from "class-validator";
+import { MessageEntity } from "./message.entity";
+import { UserEntity } from "../person/user.entity";
 
 @Entity({name: 'UserMessages', schema: 'message'})
 export class UserMessageEntity {
@@ -23,7 +23,7 @@ export class UserMessageEntity {
   @ApiProperty({type: 'uuid'})
   userId: string;
 
-  @ManyToMany(() => MessageEntity, message => message.recivers)
+  @ManyToMany(() => MessageEntity, message => message.receivers)
   @JoinColumn({name: 'messageId', referencedColumnName: 'id'})
   @IsObject()
   @ApiProperty({type: MessageEntity})
